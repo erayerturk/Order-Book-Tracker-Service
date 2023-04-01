@@ -16,11 +16,7 @@ https://cookiecutter-django.readthedocs.io/en/latest/#
 ### Setting Up
 -   To build and up the project, go to local.yml directory and use this command:
 
-        $ docker-compose -f local.yml up --build
-
--   To create DB tables, use this command:
-
-        $ docker-compose -f local.yml run --rm django python manage.py migrate
+        $ docker-compose -f local.yml up -d --build
 
 -   To create a superuser account, use this command:
 
