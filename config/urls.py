@@ -26,8 +26,11 @@ urlpatterns = [
 urlpatterns += [
     # API base url
     path("api/", include("config.api_router")),
-    re_path('api/order-book-statistics/(?P<period_type>.+)/$', OrderBookStatisticsAPIView.as_view(), name="order-book-statistics"),
-
+    re_path(
+        "api/order-book-statistics/(?P<period_type>.+)/$",
+        OrderBookStatisticsAPIView.as_view(),
+        name="order-book-statistics",
+    ),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
     path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),

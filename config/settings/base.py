@@ -2,7 +2,7 @@
 Base settings to build other settings files upon.
 """
 from pathlib import Path
-from celery.schedules import crontab
+
 import environ
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
@@ -290,13 +290,13 @@ CELERY_WORKER_SEND_TASK_EVENTS = True
 CELERY_TASK_SEND_SENT_EVENT = True
 
 CELERY_BEAT_SCHEDULE = {
-    'get_order_book_data': {
-        'task': 'order_book_tracker.order_book.tasks.get_and_save_order_book_data',
-        'schedule': 5,  # Every 5 seconds
+    "get_order_book_data": {
+        "task": "order_book_tracker.order_book.tasks.get_and_save_order_book_data",
+        "schedule": 5,  # Every 5 seconds
     },
-    'calculate_statistics': {
-        'task': 'order_book_tracker.order_book.tasks.update_or_create_statistics',
-        'schedule': 5 #crontab(minute="*/1"),  # Every minute
+    "calculate_statistics": {
+        "task": "order_book_tracker.order_book.tasks.update_or_create_statistics",
+        "schedule": 5,  # crontab(minute="*/1"),  # Every minute
     },
 }
 
@@ -328,8 +328,8 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 100,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 100,
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup

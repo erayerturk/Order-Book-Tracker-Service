@@ -1,6 +1,10 @@
 from rest_framework import serializers
 
-from order_book_tracker.order_book.models import OrderBook, PeriodType, OrderBookStatistics
+from order_book_tracker.order_book.models import (
+    OrderBook,
+    OrderBookStatistics,
+    PeriodType,
+)
 from order_book_tracker.utils.fields import UnixEpochDatetimeField
 
 
@@ -14,7 +18,10 @@ class OrderBookSerializer(serializers.Serializer):
     class Meta:
         model = OrderBook
         fields = ("market_code", "last_price", "last_size", "timestamp")
-        read_only_fields = ('id', 'timestamp',)
+        read_only_fields = (
+            "id",
+            "timestamp",
+        )
 
     def create(self, validated_data):
         return OrderBook.objects.create(**validated_data)
@@ -31,7 +38,15 @@ class OrderBookStatisticsSerializer(serializers.Serializer):
 
     class Meta:
         model = OrderBookStatistics
-        fields = ("period_type", "min_price", "max_price", "average_price", "total_volume", "created_at", "updated_at")
+        fields = (
+            "period_type",
+            "min_price",
+            "max_price",
+            "average_price",
+            "total_volume",
+            "created_at",
+            "updated_at",
+        )
         read_only_fields = ("created_at",)
 
     def to_representation(self, instance):
@@ -41,4 +56,3 @@ class OrderBookStatisticsSerializer(serializers.Serializer):
             data["week"] = week
         data["period_type"] = PeriodType(data["period_type"]).label
         return data
-

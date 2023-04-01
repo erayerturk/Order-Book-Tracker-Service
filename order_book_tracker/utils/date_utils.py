@@ -22,6 +22,3 @@ def get_start_date(period_type: int) -> datetime:
     else:
         start_date = now.replace(day=1, hour=0, minute=0, second=0)
     return start_date
-
-
-

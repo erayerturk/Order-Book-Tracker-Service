@@ -1,9 +1,10 @@
-from config import celery_app
 import requests
+
+from config import celery_app
 from config.settings.base import BITEXEN_ORDER_BOOK_API_URL
-from order_book_tracker.order_book.statistics import calculate_statistics
 from order_book_tracker.order_book.models import PeriodType
 from order_book_tracker.order_book.serializers import OrderBookSerializer
+from order_book_tracker.order_book.statistics import calculate_statistics
 
 
 @celery_app.task
@@ -33,4 +34,3 @@ def update_or_create_statistics() -> None:
     """
     for period_type in PeriodType.values:
         calculate_statistics(period_type)
-

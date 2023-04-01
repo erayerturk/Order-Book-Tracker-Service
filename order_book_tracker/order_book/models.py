@@ -3,9 +3,9 @@ from django.utils import timezone
 
 
 class PeriodType(models.IntegerChoices):
-    DAILY = 0, 'daily'
-    WEEKLY = 1, 'weekly'
-    MONTHLY = 2, 'monthly'
+    DAILY = 0, "daily"
+    WEEKLY = 1, "weekly"
+    MONTHLY = 2, "monthly"
 
 
 class TimeStampedModel(models.Model):
@@ -24,7 +24,9 @@ class OrderBook(TimeStampedModel):
 
 
 class OrderBookStatistics(TimeStampedModel):
-    period_type = models.IntegerField(default=PeriodType.DAILY, choices=PeriodType.choices)
+    period_type = models.IntegerField(
+        default=PeriodType.DAILY, choices=PeriodType.choices
+    )
     min_price = models.FloatField()
     max_price = models.FloatField()
     average_price = models.FloatField()

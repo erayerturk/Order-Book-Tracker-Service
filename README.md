@@ -19,7 +19,7 @@ https://cookiecutter-django.readthedocs.io/en/latest/#
         $ docker-compose -f local.yml up --build
 
 -   To create DB tables, use this command:
-        
+
         $ docker-compose -f local.yml run --rm django python manage.py migrate
 
 -   To create a superuser account, use this command:
@@ -34,7 +34,7 @@ https://cookiecutter-django.readthedocs.io/en/latest/#
 
 #### Docs (Swagger)
 You need to log in to see API documentation. You can use superuser credentials which you created with "createsuperuser" command
-    
+
 http://localhost:8000/accounts/login/
 
 http://localhost:8000/api/docs/
@@ -46,6 +46,3 @@ curl --request GET http://localhost:8000/api/order-book-statistics/daily/'
 curl --request GET http://localhost:8000/api/order-book-statistics/weekly/'
 curl --request GET http://localhost:8000/api/order-book-statistics/monthly/'
 ```
-
-
-

@@ -1,8 +1,12 @@
 from factory import Faker
-from factory.fuzzy import FuzzyChoice
 from factory.django import DjangoModelFactory
+from factory.fuzzy import FuzzyChoice
 
-from order_book_tracker.order_book.models import PeriodType, OrderBookStatistics, OrderBook
+from order_book_tracker.order_book.models import (
+    OrderBook,
+    OrderBookStatistics,
+    PeriodType,
+)
 
 
 class OrderBookFactory(DjangoModelFactory):
