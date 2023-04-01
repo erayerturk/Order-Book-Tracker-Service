@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=order_book_tracker
+POSTGRES_USER=uyDMWvOQzTCfoUOvygARLZqTvEvTRFiD
+POSTGRES_PASSWORD=UifUXOTcIeVV1ON3zavssy8aw9JNqsRNr4aLbUDJDYCLH0CQept7etSHUP8eeoGh

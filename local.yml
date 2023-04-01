@@ -1,0 +1,86 @@
+version: '3'
+
+volumes:
+  order_book_tracker_local_postgres_data: {}
+  order_book_tracker_local_postgres_data_backups: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: order_book_tracker_local_django
+    container_name: order_book_tracker_local_django
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: order_book_tracker_production_postgres
+    container_name: order_book_tracker_local_postgres
+    volumes:
+      - order_book_tracker_local_postgres_data:/var/lib/postgresql/data
+      - order_book_tracker_local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+    ports:
+      - "5432:5432"
+
+  docs:
+    image: order_book_tracker_local_docs
+    container_name: order_book_tracker_local_docs
+    build:
+      context: .
+      dockerfile: ./compose/local/docs/Dockerfile
+    env_file:
+      - ./.envs/.local/.django
+    volumes:
+      - ./docs:/docs:z
+      - ./config:/app/config:z
+      - ./order_book_tracker:/app/order_book_tracker:z
+    ports:
+      - "9000:9000"
+    command: /start-docs
+
+  redis:
+    image: redis:6
+    container_name: order_book_tracker_local_redis
+
+  celeryworker:
+    <<: *django
+    image: order_book_tracker_local_celeryworker
+    container_name: order_book_tracker_local_celeryworker
+    depends_on:
+      - redis
+      - postgres
+    ports: []
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: order_book_tracker_local_celerybeat
+    container_name: order_book_tracker_local_celerybeat
+    depends_on:
+      - redis
+      - postgres
+    ports: []
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: order_book_tracker_local_flower
+    container_name: order_book_tracker_local_flower
+    ports:
+      - "5555:5555"
+    command: /start-flower
